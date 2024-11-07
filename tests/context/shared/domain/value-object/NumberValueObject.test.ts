@@ -10,9 +10,7 @@ describe("NumberValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a number", () => {
         try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             new NumberValueObject(true as any);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             expect(error).toBeInstanceOf(ValueObjectError);
             expect(error.message).toBe("<true> is not a number value");

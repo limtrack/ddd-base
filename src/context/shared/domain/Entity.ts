@@ -20,8 +20,7 @@ export default class Entity<PP extends PrimitivesProps, P extends Props> {
 
     public static async fromPrimitives<E, PP>(props: PP): Promise<E>;
     public static fromPrimitives<E, PP>(props: PP): E;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public static fromPrimitives<E, PP>(props: PP): E | Promise<E> {
+    public static fromPrimitives<E, PP>(_props: PP): E | Promise<E> {
         throw new EntityError("<fromPrimitives> method must be implemented")
     }
 

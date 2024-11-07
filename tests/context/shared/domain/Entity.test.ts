@@ -3,48 +3,47 @@ import EntityError from "../../../../src/context/shared/domain/error/EntityError
 import NumberValueObject from "../../../../src/context/shared/domain/value-object/NumberValueObject";
 import StringValueObject from "../../../../src/context/shared/domain/value-object/StringValueObject";
 
-interface MockPrimitivesProps extends PrimitivesProps {
+interface TestPrimitivesProps extends PrimitivesProps {
     id: number;
     name: string;
 }
 
-interface MockProps extends Props {
+interface TestProps extends Props {
     id: NumberValueObject;
     name: StringValueObject;
 }
 
-class MockEntity extends Entity<MockPrimitivesProps, MockProps> {
-    public static fromPrimitives<MockEntity>(props: MockPrimitivesProps): MockEntity {
-        return new MockEntity({
+class TestEntity extends Entity<TestPrimitivesProps, TestProps> {
+    public static fromPrimitives<TestEntity>(props: TestPrimitivesProps): TestEntity {
+        return new TestEntity({
             id: new NumberValueObject(props.id),
             name: new StringValueObject(props.name)
-        }) as MockEntity;
+        }) as TestEntity;
     }
 }
 
-class MockEntityFromPrimitivesNoImplemented extends Entity<MockPrimitivesProps, MockProps> {}
+class TestEntityFromPrimitivesNoImplemented extends Entity<TestPrimitivesProps, TestProps> {}
 
 describe("Entity", () => {
     it("should convert entity properties to primitives", () => {
-        const props = { id: 123, name: "Mock Entity" };
-        const entity = MockEntity.fromPrimitives<MockEntity>(props);
+        const props = { id: 123, name: "Test Entity" };
+        const entity = TestEntity.fromPrimitives<TestEntity>(props);
         const primitives = entity.toPrimitives();
 
         expect(primitives).toEqual(props);
     });
 
     it("should create entity from primitives", () => {
-        const primitives = { id: 123, name: "Mock Entity" };
-        const entity = MockEntity.fromPrimitives(primitives);
+        const primitives = { id: 123, name: "Test Entity" };
+        const entity = TestEntity.fromPrimitives(primitives);
 
-        expect(entity).toBeInstanceOf(MockEntity);
+        expect(entity).toBeInstanceOf(TestEntity);
     });
 
     it("should throw an error with the correct message when the method `fromPrimitives` is not implemented", () => {
         try {
-            const primitives = { id: 123, name: "Mock Entity" };
-            MockEntityFromPrimitivesNoImplemented.fromPrimitives(primitives);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const primitives = { id: 123, name: "Test Entity" };
+            TestEntityFromPrimitivesNoImplemented.fromPrimitives(primitives);
         } catch (error: any) {
             expect(error).toBeInstanceOf(EntityError);
             expect(error.message).toBe("<fromPrimitives> method must be implemented");

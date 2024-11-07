@@ -10,9 +10,7 @@ describe("UuidValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a uuid", () => {
         try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             new UuidValueObject("not a uuid" as any);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             expect(error).toBeInstanceOf(ValueObjectError);
             expect(error.message).toBe("<not a uuid> is not a valid uuid");

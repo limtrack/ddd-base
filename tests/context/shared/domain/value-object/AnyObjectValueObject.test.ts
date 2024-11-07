@@ -2,13 +2,13 @@ import { isNil } from "lodash";
 import AnyObjectValueObject from "../../../../../src/context/shared/domain/value-object/AnyObjectValueObject";
 import ValueObjectError from "../../../../../src/context/shared/domain/error/ValueObjectError";
 
-type MockAnyObject = {
+type TestAnyObject = {
     id: number;
     name: string;
     isAdmin: boolean;
 };
 
-class MockAnyObjectValueObject extends AnyObjectValueObject<MockAnyObject> {
+class TestAnyObjectValueObject extends AnyObjectValueObject<TestAnyObject> {
     protected valueIsDefined(): void {
         super.valueIsDefined();
         Object.entries(this.value).forEach(([key, value]) => {
@@ -19,15 +19,15 @@ class MockAnyObjectValueObject extends AnyObjectValueObject<MockAnyObject> {
     }
 }
 
-describe("MockAnyObjectValueObject", () => {
-    it("should create a valid MockAnyObjectValueObject", () => {
-        const mockAnyObject: MockAnyObject = {
+describe("TestAnyObjectValueObject", () => {
+    it("should create a valid TestAnyObjectValueObject", () => {
+        const mockAnyObject: TestAnyObject = {
             id: 12345,
             name: "admin",
             isAdmin: true
         };
-        const anyObjectValueObject = new MockAnyObjectValueObject(mockAnyObject);
-        expect(anyObjectValueObject).toBeInstanceOf(MockAnyObjectValueObject);
+        const anyObjectValueObject = new TestAnyObjectValueObject(mockAnyObject);
+        expect(anyObjectValueObject).toBeInstanceOf(TestAnyObjectValueObject);
     });
 
     it("should throw an error with the correct message when the value is not a correct object", () => {
@@ -37,8 +37,7 @@ describe("MockAnyObjectValueObject", () => {
                 name: null,
                 isAdmin: true
             };
-            new MockAnyObjectValueObject(mockAnyObject as unknown as MockAnyObject);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            new TestAnyObjectValueObject(mockAnyObject as unknown as TestAnyObject);
         } catch (error: any) {
             expect(error).toBeInstanceOf(ValueObjectError);
             expect(error.message).toBe("<name> has not a valid value");
@@ -46,44 +45,44 @@ describe("MockAnyObjectValueObject", () => {
     });
 
     it("toString equals - no equal", () => {
-        const mockAnyObjectA: MockAnyObject = {
+        const mockAnyObjectA: TestAnyObject = {
             id: 12345,
             name: "admin",
             isAdmin: true
         };
-        const mockAnyObjectB: MockAnyObject = {
+        const mockAnyObjectB: TestAnyObject = {
             id: 12346,
             name: "admin2",
             isAdmin: true
         };
-        const anyObjectValueObjectA = new MockAnyObjectValueObject(mockAnyObjectA);
-        const anyObjectValueObjectB = new MockAnyObjectValueObject(mockAnyObjectB);
+        const anyObjectValueObjectA = new TestAnyObjectValueObject(mockAnyObjectA);
+        const anyObjectValueObjectB = new TestAnyObjectValueObject(mockAnyObjectB);
         expect(anyObjectValueObjectA.equals(anyObjectValueObjectB)).toBeFalsy();
     });
 
     it("toString equals - equal", () => {
-        const mockAnyObjectA: MockAnyObject = {
+        const mockAnyObjectA: TestAnyObject = {
             id: 12345,
             name: "admin",
             isAdmin: true
         };
-        const mockAnyObjectB: MockAnyObject = {
+        const mockAnyObjectB: TestAnyObject = {
             id: 12345,
             name: "admin",
             isAdmin: true
         };
-        const anyObjectValueObjectA = new MockAnyObjectValueObject(mockAnyObjectA);
-        const anyObjectValueObjectB = new MockAnyObjectValueObject(mockAnyObjectB);
+        const anyObjectValueObjectA = new TestAnyObjectValueObject(mockAnyObjectA);
+        const anyObjectValueObjectB = new TestAnyObjectValueObject(mockAnyObjectB);
         expect(anyObjectValueObjectA.equals(anyObjectValueObjectB)).toBeTruthy();
     });
 
-    it("MockAnyObjectValueObject like <string>", () => {
-        const mockAnyObject: MockAnyObject = {
+    it("TestAnyObjectValueObject like <string>", () => {
+        const mockAnyObject: TestAnyObject = {
             id: 12345,
             name: "admin",
             isAdmin: true
         };
-        const anyObjectValueObject = new MockAnyObjectValueObject(mockAnyObject);
+        const anyObjectValueObject = new TestAnyObjectValueObject(mockAnyObject);
         expect(anyObjectValueObject.toString()).toEqual('{"id":12345,"name":"admin","isAdmin":true}');
     });
 });

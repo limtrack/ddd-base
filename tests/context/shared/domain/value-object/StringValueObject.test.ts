@@ -15,9 +15,7 @@ describe("StringValueObject", () => {
 
     it("should throw an error with the correct message when the value is undefined", () => {
         try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             new StringValueObject(undefined as any);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             expect(error).toBeInstanceOf(ValueObjectError);
             expect(error.message).toBe("The <value> of StringValueObject must be defined");
@@ -26,9 +24,7 @@ describe("StringValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a string", () => {
         try {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             new StringValueObject(123 as any);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             expect(error).toBeInstanceOf(ValueObjectError);
             expect(error.message).toBe("<123> is not a string value");
@@ -38,7 +34,7 @@ describe("StringValueObject", () => {
     it("toString equals - no equal (different object)", () => {
         const booleanValueObject = new BooleanValueObject(true);
         const stringValueObject = new StringValueObject("bye");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         expect(stringValueObject.equals(booleanValueObject as any)).toBeFalsy();
     });
 

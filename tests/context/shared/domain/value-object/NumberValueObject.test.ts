@@ -10,10 +10,14 @@ describe("NumberValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a number", () => {
         try {
-            new NumberValueObject(true as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("<true> is not a number value");
+            new NumberValueObject(true  as unknown as number);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("<true> is not a number value");
+            } else {
+                throw error;
+            }
         }
     });
 

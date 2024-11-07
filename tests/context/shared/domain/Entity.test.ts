@@ -44,9 +44,13 @@ describe("Entity", () => {
         try {
             const primitives = { id: 123, name: "Test Entity" };
             TestEntityFromPrimitivesNoImplemented.fromPrimitives(primitives);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(EntityError);
-            expect(error.message).toBe("<fromPrimitives> method must be implemented");
+        } catch (error: unknown) {
+            if (error instanceof EntityError) {
+                expect(error).toBeInstanceOf(EntityError);
+                expect(error.message).toBe("<fromPrimitives> method must be implemented");
+            } else {
+                throw error;
+            }
         }
     });
 });

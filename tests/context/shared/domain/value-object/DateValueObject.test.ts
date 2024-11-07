@@ -10,10 +10,14 @@ describe("DateValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a date", () => {
         try {
-            new DateValueObject(true as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("<true> is not a Date value");
+            new DateValueObject(true as unknown as Date);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("<true> is not a Date value");
+            } else {
+                throw error;
+            }
         }
     });
 

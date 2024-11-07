@@ -1,12 +1,12 @@
 export default class DomainEvent {
-  public readonly occurredOn: Date
+    public readonly occurredOn: Date
 
-  protected constructor(
+    protected constructor(
       public readonly eventName: string,
       occurredOn?: Date
-  ) {
-      this.occurredOn = occurredOn ?? new Date()
-  }
+    ) {
+        this.occurredOn = occurredOn ?? new Date()
+    }
 }
 
 export type DomainEventName<T extends DomainEvent> = Pick<T, "eventName">

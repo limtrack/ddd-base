@@ -1,4 +1,4 @@
-export default class EntityError extends Error {
+export default class AggregateRootError extends Error {
     public readonly name: string;
   
     constructor(message: string) {

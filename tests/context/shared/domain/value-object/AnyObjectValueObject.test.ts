@@ -38,9 +38,13 @@ describe("TestAnyObjectValueObject", () => {
                 isAdmin: true
             };
             new TestAnyObjectValueObject(mockAnyObject as unknown as TestAnyObject);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("<name> has not a valid value");
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("<name> has not a valid value");
+            } else {
+                throw error;
+            }
         }
     });
 

@@ -18,9 +18,13 @@ describe("EnumValueObject", () => {
     it("should throw an error with the correct message when the value is not in validValues", () => {
         try {
             new TestEnumValueObject(TestEnum.VALID, [TestEnum.INVALID]);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe(`The <${TestEnum.VALID}> is not included in the <validValues> of TestEnumValueObject`);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe(`The <${TestEnum.VALID}> is not included in the <validValues> of TestEnumValueObject`);
+            } else {
+                throw error;
+            }
         }
     });
 

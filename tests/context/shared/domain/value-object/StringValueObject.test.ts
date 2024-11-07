@@ -15,19 +15,28 @@ describe("StringValueObject", () => {
 
     it("should throw an error with the correct message when the value is undefined", () => {
         try {
-            new StringValueObject(undefined as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("The <value> of StringValueObject must be defined");
+            new StringValueObject(undefined as unknown as string);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("The <value> of StringValueObject must be defined");
+            } else {
+                throw error;
+            }
         }
+
     });
 
     it("should throw an error with the correct message when the value is not a string", () => {
         try {
-            new StringValueObject(123 as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("<123> is not a string value");
+            new StringValueObject(123 as unknown as string);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("<123> is not a string value");
+            } else {
+                throw error;
+            }
         }
     });
 
@@ -35,7 +44,7 @@ describe("StringValueObject", () => {
         const booleanValueObject = new BooleanValueObject(true);
         const stringValueObject = new StringValueObject("bye");
 
-        expect(stringValueObject.equals(booleanValueObject as any)).toBeFalsy();
+        expect(stringValueObject.equals(booleanValueObject as unknown as StringValueObject)).toBeFalsy();
     });
 
     it("toString equals - no equal", () => {

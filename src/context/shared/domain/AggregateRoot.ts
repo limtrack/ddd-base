@@ -1,10 +1,10 @@
-import Entity from "./Entity"
+import Entity, { PrimitivesProps, Props } from "./Entity"
 import DomainEvent from "./event/DomainEvent"
 
-export abstract class AggregateRoot<P extends object, T extends object> extends Entity<P, T> {
+export default abstract class AggregateRoot<PP extends PrimitivesProps, P extends Props> extends Entity<PP, P> {
     private domainEvents: DomainEvent[]
 
-    private constructor(props: T) {
+    protected constructor(props: P) {
         super(props)
         this.domainEvents = []
     }

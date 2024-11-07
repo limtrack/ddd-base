@@ -5,7 +5,7 @@ export default class DateValueObject extends ValueObject<Date> {
     protected valueIsDefined(): void {
         super.valueIsDefined()
         if (!DateValueObject.isValidDate(this.value)) {
-          throw new ValueObjectError(`<${this.value}> is not a Date value`, this.value, this.constructor.name)
+            throw new ValueObjectError(`<${this.value}> is not a Date value`, this.value, this.constructor.name)
         }
     }
 

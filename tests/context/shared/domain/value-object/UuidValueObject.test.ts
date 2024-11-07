@@ -10,10 +10,14 @@ describe("UuidValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a uuid", () => {
         try {
-            new UuidValueObject("not a uuid" as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("<not a uuid> is not a valid uuid");
+            new UuidValueObject("not a uuid" as unknown as string);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("<not a uuid> is not a valid uuid");
+            } else {
+                throw error;
+            }
         }
     });
 

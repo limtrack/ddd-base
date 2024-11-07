@@ -10,19 +10,27 @@ describe("BooleanValueObject", () => {
 
     it("should throw an error with the correct message when the value is not a boolean", () => {
         try {
-            new BooleanValueObject("not a boolean" as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("<not a boolean> is not a boolean value");
+            new BooleanValueObject("not a boolean" as unknown as boolean);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("<not a boolean> is not a boolean value");
+            } else {
+                throw error;
+            }
         }
     });
 
     it("should throw an error with the correct message when the value is undefined", () => {
         try {
-            new BooleanValueObject(undefined as any);
-        } catch (error: any) {
-            expect(error).toBeInstanceOf(ValueObjectError);
-            expect(error.message).toBe("The <value> of BooleanValueObject must be defined");
+            new BooleanValueObject(undefined as unknown as boolean);
+        } catch (error: unknown) {
+            if (error instanceof ValueObjectError) {
+                expect(error).toBeInstanceOf(ValueObjectError);
+                expect(error.message).toBe("The <value> of BooleanValueObject must be defined");
+            } else {
+                throw error;
+            }
         }
     });
 

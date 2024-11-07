@@ -11,7 +11,6 @@ export interface Props {
 }
 
 export default class Entity<PP extends PrimitivesProps, P extends Props> {
-
     private props: P
 
     protected constructor(props: P) {

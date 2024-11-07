@@ -10,6 +10,7 @@ export default [
         rules: {
             "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
             "indent": ["error", 4],
+            "quotes": ["error", "double"]
         },
     },
     {

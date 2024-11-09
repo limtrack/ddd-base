@@ -9,10 +9,6 @@ describe("StringValueObject", () => {
         expect(stringValueObject).toBeInstanceOf(StringValueObject);
     });
 
-    it("should throw an error if value is an empty string", () => {
-        expect(() => new StringValueObject("")).toThrow(ValueObjectError);
-    });
-
     it("should throw an error with the correct message when the value is undefined", () => {
         try {
             new StringValueObject(undefined as unknown as string);

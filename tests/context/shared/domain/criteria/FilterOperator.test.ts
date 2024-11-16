@@ -17,11 +17,6 @@ describe("FilterOperator", () => {
         expect(operator.value).toBe(Operator.EQUAL);
     });
 
-    it("should create a FilterOperator with NOT_CONTAINS value", () => {
-        const operator = new FilterOperator(Operator.NOT_CONTAINS);
-        expect(operator.value).toBe(Operator.NOT_CONTAINS);
-    });
-
     it("should throw an error when creating a FilterOperator from an invalid string value", () => {
         expect(() => FilterOperator.fromValue("INVALID")).toThrow(InvalidArgumentError);
     });

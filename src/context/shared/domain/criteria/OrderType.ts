@@ -1,4 +1,5 @@
 import EnumValueObject from "../value-object/EnumValueObject";
+import InvalidArgumentError from "../error/InvalidArgumentError";
 
 export enum OrderTypes {
   ASC = "asc",
@@ -7,8 +8,18 @@ export enum OrderTypes {
 }
 
 export default class OrderType extends EnumValueObject<OrderTypes> {
-    static fromValue(type: OrderTypes | string): OrderType {
-        return new OrderType(type as OrderTypes, Object.values(OrderTypes));
+    constructor(value: OrderTypes) {
+        super(value, Object.values(OrderTypes));
+    }
+
+    static fromValue(value: string): OrderType {
+        for (const orderTypesValues of Object.values(OrderTypes)) {
+            if (value === orderTypesValues.toString()) {
+                return new OrderType(orderTypesValues);
+            }
+        }
+
+        throw new InvalidArgumentError(`The order type ${value} is invalid`);
     }
 
     public isType(type: OrderTypes): boolean {

@@ -1,5 +1,5 @@
-import UseCase from '../../../../src/context/shared/application/UseCase';
-import { jest } from '@jest/globals';
+import UseCase from "../../../../src/context/shared/application/UseCase";
+import { jest } from "@jest/globals";
 
 class TestUseCase extends UseCase<string, [string]> {
     public run(arg: string): string {
@@ -9,25 +9,25 @@ class TestUseCase extends UseCase<string, [string]> {
 
 class TestUseCaseVoid extends UseCase {
     public run(): void {
-        console.log('run');
+        console.log("run");
     }
 }
 
-describe('UseCase', () => {
-    it('no provided any argument, return void', () => {
+describe("UseCase", () => {
+    it("no provided any argument, return void", () => {
         const useCase = new TestUseCaseVoid();
         const spyOnRun = jest.spyOn(useCase, "run");
         useCase.run();
         expect(spyOnRun).toHaveBeenCalled();
     });
 
-    it('should return a string with the provided argument', () => {
+    it("should return a string with the provided argument", () => {
         const useCase = new TestUseCase();
-        const result = useCase.run('World');
-        expect(result).toBe('Hello, World');
+        const result = useCase.run("World");
+        expect(result).toBe("Hello, World");
     });
 
-    it('should handle promises correctly', async () => {
+    it("should handle promises correctly", async () => {
         class AsyncTestUseCase extends UseCase<Promise<string>, [string]> {
             public async run(arg: string): Promise<string> {
                 return `Hello, ${arg}`;
@@ -35,7 +35,7 @@ describe('UseCase', () => {
         }
 
         const useCase = new AsyncTestUseCase();
-        const result = await useCase.run('Async World');
-        expect(result).toBe('Hello, Async World');
+        const result = await useCase.run("Async World");
+        expect(result).toBe("Hello, Async World");
     });
 });

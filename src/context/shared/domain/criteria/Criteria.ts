@@ -2,12 +2,12 @@ import Filters from "./Filters";
 import Order from "./Order";
 
 export default class Criteria {
-    readonly filters: Filters;
+    readonly filters: Filters[];
     readonly order?: Order;
     readonly limit?: number;
     readonly offset?: number;
 
-    constructor(filters: Filters, order?: Order, limit?: number, offset?: number) {
+    constructor(filters: Filters[], order?: Order, limit?: number, offset?: number) {
         this.filters = filters;
         this.order = order;
         this.limit = limit;
@@ -15,6 +15,6 @@ export default class Criteria {
     }
 
     public hasFilters(): boolean {
-        return this.filters.filters.length > 0;
+        return this.filters.length > 0;
     }
 }

@@ -1,7 +1,7 @@
 import { flow } from "lodash";
 import Criteria from "../../domain/criteria/Criteria";
 import Filter from "../../domain/criteria/Filter";
-import Filters from "../../domain/criteria/Filters";
+import Filters, { FilterCondition } from "../../domain/criteria/Filters";
 import Order from "../../domain/criteria/Order";
 import { OrderTypes } from "../../domain/criteria/OrderType";
 import { Operator } from "../../domain/criteria/FilterOperator";
@@ -9,8 +9,12 @@ import { Operator } from "../../domain/criteria/FilterOperator";
 interface InMemoryData {
     [key: string]: string | number | string[] | number[];
 };
-
 type InMemoryFilter = (item: InMemoryData) => boolean;
+
+type InMemoryFilters = {
+    condition: FilterCondition
+    filters: InMemoryFilter[];
+};
 
 type InMemoryFunction = (data: InMemoryData[]) => InMemoryData[];
 
@@ -45,20 +49,31 @@ export default class InMemoryCriteriaConverter {
         return flow(functionsForFlow);
     }
 
-    private filterDataArray(filters: Filters): InMemoryFunction {
-        const currentFilters = filters.filters.map(filter => {
-            const transformer = this.filterTransformers.get(filter.operator.value);
-      
-            if (!transformer) {
-                throw Error(`Unexpected operator value ${filter.operator.value}`);
+    private filterDataArray(filters: Filters[]): InMemoryFunction {
+        const inMemoryFilters: InMemoryFilters[] = [];
+
+        filters.forEach((currentfilters, index) => {
+            inMemoryFilters[index] = {
+                condition: currentfilters.condition,
+                filters: currentfilters.filters.map(filter => {
+                    const transformer = this.filterTransformers.get(filter.operator.value);
+                
+                    if (!transformer) {
+                        throw Error(`Unexpected operator value ${filter.operator.value}`);
+                    }
+                
+                    return transformer(filter);
+                })
             }
-      
-            return transformer(filter);
         });
 
         return (data: InMemoryData[]): InMemoryData[] => {
             return data.filter((item) => {
-                return currentFilters.every((currentFilter) => currentFilter(item));
+                return inMemoryFilters.every(({ condition, filters }) => {
+                    return condition === FilterCondition.AND
+                        ? filters.every((filter) => filter(item))
+                        : filters.some((filter) => filter(item));
+                });
             });
         }
     }

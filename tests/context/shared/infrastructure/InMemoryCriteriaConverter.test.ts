@@ -19,7 +19,11 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should filter data based on EQUAL operator", () => {
         const criteria = new Criteria(
-            new Filters([new Filter(new FilterField("field"), new FilterOperator(Operator.EQUAL), new FilterValue("value"))]),
+            [
+                new Filters(
+                    [new Filter(new FilterField("field"), new FilterOperator(Operator.EQUAL), new FilterValue("value"))]
+                )
+            ],
             undefined,
             undefined,
             undefined
@@ -33,7 +37,11 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should filter data based on NOT_EQUAL operator", () => {
         const criteria = new Criteria(
-            new Filters([new Filter(new FilterField("field"), new FilterOperator(Operator.NOT_EQUAL), new FilterValue("value"))]),
+            [
+                new Filters(
+                    [new Filter(new FilterField("field"), new FilterOperator(Operator.NOT_EQUAL), new FilterValue("value"))]
+                )
+            ],
             undefined,
             undefined,
             undefined
@@ -47,7 +55,11 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should filter data based on GT operator", () => {
         const criteria = new Criteria(
-            new Filters([new Filter(new FilterField("field"), new FilterOperator(Operator.GT), new FilterValue(10))]),
+            [
+                new Filters(
+                    [new Filter(new FilterField("field"), new FilterOperator(Operator.GT), new FilterValue(10))]
+                )
+            ],
             undefined,
             undefined,
             undefined
@@ -61,7 +73,11 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should filter data based on LT operator", () => {
         const criteria = new Criteria(
-            new Filters([new Filter(new FilterField("field"), new FilterOperator(Operator.LT), new FilterValue(10))]),
+            [
+                new Filters(
+                    [new Filter(new FilterField("field"), new FilterOperator(Operator.LT), new FilterValue(10))]
+                )
+            ],
             undefined,
             undefined,
             undefined
@@ -75,7 +91,11 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should filter data based on CONTAINS operator", () => {
         const criteria = new Criteria(
-            new Filters([new Filter(new FilterField("field"), new FilterOperator(Operator.CONTAINS), new FilterValue("value"))]),
+            [
+                new Filters(
+                    [new Filter(new FilterField("field"), new FilterOperator(Operator.CONTAINS), new FilterValue("value"))]
+                )
+            ],
             undefined,
             undefined,
             undefined
@@ -89,7 +109,7 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should order data based on ASC order", () => {
         const criteria = new Criteria(
-            new Filters([]),
+            [new Filters([])],
             new Order(new OrderBy("field"), OrderType.fromValue(OrderTypes.ASC)),
             undefined,
             undefined
@@ -103,7 +123,7 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should order data based on DESC order", () => {
         const criteria = new Criteria(
-            new Filters([]),
+            [new Filters([])],
             new Order(new OrderBy("field"), OrderType.fromValue(OrderTypes.DESC)),
             undefined,
             undefined
@@ -117,7 +137,7 @@ describe("InMemoryCriteriaConverter", () => {
 
     it("should slice data based on offset and limit", () => {
         const criteria = new Criteria(
-            new Filters([]),
+            [new Filters([])],
             undefined,
             1,
             1

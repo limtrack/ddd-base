@@ -1,20 +1,20 @@
 import Filter from "./Filter";
 
-export enum FilterCondition {
+export enum FiltersCondition {
     AND = "AND",
     OR = "OR",
 }
 
 export default class Filters {
-    readonly condition: FilterCondition;
+    readonly condition: FiltersCondition;
     readonly filters: Filter[];
 
-    constructor(filters: Filter[], condition: FilterCondition = FilterCondition.AND) {
+    constructor(filters: Filter[], condition: FiltersCondition = FiltersCondition.AND) {
         this.filters = filters;
         this.condition = condition;
     }
 
-    static fromValues(filters: Array<Map<string, string>>, condition?: FilterCondition): Filters {
+    static fromValues(filters: Array<Map<string, string>>, condition?: FiltersCondition): Filters {
         return new Filters(filters.map(Filter.fromValues), condition);
     }
 

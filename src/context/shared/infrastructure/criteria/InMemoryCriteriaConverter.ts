@@ -1,7 +1,7 @@
 import { flow } from "lodash";
 import Criteria from "../../domain/criteria/Criteria";
 import Filter from "../../domain/criteria/Filter";
-import Filters, { FilterCondition } from "../../domain/criteria/Filters";
+import Filters, { FiltersCondition } from "../../domain/criteria/Filters";
 import Order from "../../domain/criteria/Order";
 import { OrderTypes } from "../../domain/criteria/OrderType";
 import { Operator } from "../../domain/criteria/FilterOperator";
@@ -12,7 +12,7 @@ interface InMemoryData {
 type InMemoryFilter = (item: InMemoryData) => boolean;
 
 type InMemoryFilters = {
-    condition: FilterCondition
+    condition: FiltersCondition
     filters: InMemoryFilter[];
 };
 
@@ -70,7 +70,7 @@ export default class InMemoryCriteriaConverter {
         return (data: InMemoryData[]): InMemoryData[] => {
             return data.filter((item) => {
                 return inMemoryFilters.every(({ condition, filters }) => {
-                    return condition === FilterCondition.AND
+                    return condition === FiltersCondition.AND
                         ? filters.every((filter) => filter(item))
                         : filters.some((filter) => filter(item));
                 });

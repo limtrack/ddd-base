@@ -15,6 +15,8 @@ export default class Criteria {
     }
 
     public hasFilters(): boolean {
-        return this.filters.length > 0;
+        return Array.isArray(this.filters) &&
+            Array.isArray(this.filters[0].filters) &&
+            this.filters[0].filters.length > 0;
     }
 }

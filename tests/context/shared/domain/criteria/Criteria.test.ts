@@ -7,7 +7,7 @@ import OrderType from "../../../../../src/context/shared/domain/criteria/OrderTy
 
 describe("Criteria", () => {
     it("should create an instance with given parameters", () => {
-        const filters = new Filters([]);
+        const filters = [new Filters([])];
         const order = new Order(new OrderBy("field"), OrderType.fromValue("asc"));
         const limit = 10;
         const offset = 5;
@@ -21,7 +21,7 @@ describe("Criteria", () => {
     });
 
     it("should create an instance with only filters", () => {
-        const filters = new Filters([]);
+        const filters = [new Filters([])];
 
         const criteria = new Criteria(filters);
 
@@ -33,7 +33,7 @@ describe("Criteria", () => {
     });
 
     it("should return false if there are no filters", () => {
-        const filters = new Filters([]);
+        const filters = [new Filters([])];
         const criteria = new Criteria(filters);
 
         expect(criteria.hasFilters()).toBe(false);
@@ -46,7 +46,7 @@ describe("Criteria", () => {
             ["value", "one"]
         ]);
         const filters = Filters.fromValues([filterOne]);
-        const criteria = new Criteria(filters);
+        const criteria = new Criteria([filters]);
 
         expect(criteria.hasFilters()).toBe(true);
     });
